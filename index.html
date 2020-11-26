@@ -16,7 +16,10 @@
         <link rel="mask-icon" href="safari-pinned-tab.svg" color="#3385FF">
 
         <link rel="stylesheet" href="css/normalize.css">
-		<link rel="stylesheet" href="css/screen.css">        
+        <link rel="stylesheet" href="css/screen.css">    
+        
+        <script src="script/app.js"></script> 
+        
     </head>
     <body>
         <section class="o-row o-row--lg o-row--login">
@@ -33,18 +36,43 @@
                         <h2 class="c-card__title">
                             Sign in to your account
                         </h2>
-                        <p class="c-form-field">
-                            <label class="c-label" for="username">
-                                Email address                                
+
+                        <p class="c-form-field c-form-field--relative js-email-field">
+                            <label class="c-label js-email-label" for="username">
+                                Email
+                                <span class="c-label__error js-email-error"></span>
                             </label>
-                            <input class="c-input" type="email" name="username" id="username" placeholder="e.g. john@doe.com" required>
+                            <input class="c-input js-email-input" type="email" name="username" id="username" required>
                         </p>
-                        <p class="c-form-field">
-                            <label class="c-label" for="password">
-								Password								
-                            </label>                            
-                            <input class="c-input" type="password" name="password" id="password" required>
+
+
+                        <p class="c-form-field c-form-field--relative js-password-field">        
+                            <label class="c-label js-password-label" for="password">
+                                Password
+                                <span class="c-label__error js-password-error"></span>
+                            </label>
+
+
+                            <span class="c-toggle-password-container">
+                                <input class="c-input js-password-input" type="password" name="password" id="password" required>
+                                <span class="c-toggle-password">
+                                    <input class="o-hide-accessible c-toggle-password__checkbox js-password-toggle" type="checkbox" id="hidepassword">
+                                    <label class="c-toggle-password__label" for="hidepassword">
+
+                                        <svg class="c-toggle-password__icon c-toggle-password__icon--hide" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path d="M19.009,73.18l-1.77,1.78a3.908,3.908,0,0,0-1.037-.137,4,4,0,0,0-3.857,5.065l-.007-.028-2.76,2.75A11.106,11.106,0,0,1,6.4,78.82,11.014,11.014,0,0,1,19.076,73.2L19,73.18Zm3.8,1.85a11.163,11.163,0,0,1,3.2,3.79,11.014,11.014,0,0,1-12.7,5.622l.077.018,1.77-1.78a3.907,3.907,0,0,0,1.037.137,4,4,0,0,0,3.857-5.065l.007.028,2.76-2.75Zm-.25-3.99,1.42,1.42L9.839,86.6l-1.42-1.42Z" transform="translate(-6.199 -68.82)"/>
+                                        </svg>
+                                        <svg class="c-toggle-password__icon c-toggle-password__icon--show" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path d="M6.4,133.876a11,11,0,0,1,19.571-.061l.029.061a11,11,0,0,1-19.571.061l-.029-.061Zm9.8,4a4,4,0,1,0,0-8h0a4,4,0,0,0,0,8Zm0-2a2,2,0,0,1,0-4h0a2,2,0,1,1,0,4Z" transform="translate(-6.2 -123.876)"/>
+                                        </svg>
+                                        <span class="o-hide-accessible">Show password</span>
+
+                                    </label>
+                                </span>
+                            </span>
                         </p>
+
+
                         <!-- Custom checkbox -->
                         <p class="c-form-field c-form-field--option">
                             <input class="o-hide-accessible c-option c-option--hidden js-remember-input" type="checkbox" id="customRememberme">
@@ -57,16 +85,21 @@
                                 Remember me
                             </label>
                         </p>
+
                         <p class="u-mb-md">
                             <!-- Button -->
                             <button class="o-button-reset c-button js-sign-in-button">Sign in</button>
                         </p>
+
                         <p class="u-text-sm u-align-text-center">
                             <a href="#!">
                                 Forgot password?
                             </a>
                         </p>
+
                     </div>
+
+
                     <div class="c-card__footer">
                         <p class="u-align-text-center u-text-sm u-color-neutral-dark">
                             Don't have an account? <a href="#">Create an account</a>

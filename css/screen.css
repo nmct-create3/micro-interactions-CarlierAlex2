@@ -71,6 +71,10 @@
     --global-input-focus-borderColor: var(--global-color-alpha);
     --global-input-focus-boxShadowColor: var(--global-color-alpha-x-transparent);
     --global-input-focus-boxShadow: 0 0 0 3px var(--global-input-focus-boxShadowColor);
+
+    /* error */
+    --global-color-error: red;
+    --global-input-error-borderColor: red;
 }
 
 /*------------------------------------*\
@@ -611,6 +615,11 @@ input::placeholder {
     align-items: center;
 }
 
+.c-form-field--relative {
+    position: relative;
+}
+
+
 /*
     Component: Input
     ---
@@ -622,7 +631,7 @@ input::placeholder {
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    border: 1px solid var(--global-input-borderColor);
+    border: var(--global-borderWidth) solid var(--input-borderColor, var(--global-input-borderColor));
     border-radius: var(--global-borderRadius);
     background-color: var(--global-input-backgroundColor);
     color: var(--global-input-color);
@@ -635,14 +644,15 @@ input::placeholder {
 }
 
 .c-input:hover {
-    border-color: var(--global-input-hover-borderColor);
+    border-color: var(--input-hover-borderColor, var(--global-input-hover-borderColor));
 }
 
 .c-input:focus,
 .c-input:active {
-    border-color: var(--global-input-focus-borderColor);
-    box-shadow: var(--global-input-focus-boxShadow);
+    border-color: var(--input-focus-borderColor, var(--global-input-focus-borderColor));
+    box-shadow: var(--input-boxSchadow, var(--global-input-focus-boxShadow));
 }
+
 
 /*
 Input password with toggle checkbox on top of it needs
@@ -666,16 +676,38 @@ more padding on the right to avoid overlap
 */
 
 .c-label {
-    --label-color: var(--global-color-neutral-xx-dark);
+    /*--label-color: var(--global-color-neutral-xx-dark);*/
     margin-bottom: 0;
     padding-bottom: var(--global-whitespace-sm);
     font-size: 14px;
     line-height: 16px;
-    color: var(--label-color);
+    color: var(--label-color, var(--global-color-neutral-xx-dark));
+}
+
+.c-label__error{
+    float: right;
 }
 
 .c-label--option {
     padding-bottom: 0;
+}
+
+.c-label--floating {
+    position: absolute;
+    z-index: 100;
+    top: 12px;
+    left: 8px;
+    padding: 4px 8px;
+    will-change: transform;
+    transform: translateY( 0 );
+    transition: transform 200ms ease-in-out;
+    box-shadow: 0 0 4px 4px rgba(255,255,255,0.8);
+    background: white;
+}
+
+
+.c-form-field:focus-within .c-label--floating{
+    transform: translateY(-24px);
 }
 
 /*
@@ -935,6 +967,170 @@ more padding on the right to avoid overlap
     ---
     Password toggle custom checkbox
 */
+
+.c-toggle-password-container{
+    display: block; /*om volledige hoogte te geven van de elmenenten*/
+    position: relative;
+}
+
+.c-toggle-password{
+    display: block;
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.c-toggle-password__label{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--global-whitespace-md);
+}
+
+.c-toggle-password__icon{
+    width: calc(var(--global-baseline) * 3);
+    height: calc(var(--global-baseline) * 3);
+    fill: var(--global-color-neutral-dark);
+}
+
+.c-toggle-password__icon--hide{
+    display: none;
+}
+
+.c-toggle-password__icon--show{
+    display: block;
+}
+
+.c-toggle-password__checkbox:checked + .c-toggle-password__label .c-toggle-password__icon--hide{
+    display: block;
+}
+
+.c-toggle-password__checkbox:checked + .c-toggle-password__label .c-toggle-password__icon--show{
+    display: none;
+}
+
+
+/*
+    Component: Like
+    ---
+*/
+.c-like__symbol{
+    width: calc(var(--global-baseline) * 3);
+    height: calc(var(--global-baseline) * 3);
+    fill: var(--like-btn-color, var(--global-color-neutral-x-light));
+    transform: scale(1);
+}
+
+.c-option--hidden:checked + .c-custom-like .c-like__symbol {
+    --like-btn-color: #D80027;
+    transform: scale(0.9);
+}
+
+/*
+    Component: Like
+    ---
+*/
+.c-rating{
+    display: flex;
+    align-items: center;
+}
+
+.c-custom-rating {
+
+}
+
+.c-rating__label{
+
+}
+
+.c-rating__input
+{
+
+}
+
+.c-rating__symbol
+{
+    height: 1.5rem;
+    fill: #ccc;
+    stroke: none;
+}
+
+.c-rating__input:focus + .c-rating__label .c-rating__symbol{
+    filter: drop-shadow(0 1px 1px rgba(255, 220, 23, .4));
+}
+
+.c-rating__input:checked + .c-rating__label .c-rating__symbol{
+    fill: rgb(255, 220, 23);
+}
+
+.c-rating__input--on + .c-rating__label .c-rating__symbol{
+    fill: rgb(255, 220, 23);
+}
+
+
+/*
+    Component: Hover
+    ---
+*/
+.c-tent{
+    --border-radius: 8px;
+    position: relative;
+    background-color: #fff;
+    transition: transform .2s cubic-bezier(.215,.61,.355,1);
+    transform: translateY(0);
+    display: block;
+}
+
+.c-tent::before{
+    border-radius: var(--border-radius);
+}
+
+.c-tent__icon-wrapper{
+    --container-size: 64px;
+    position: absolute;
+    z-index: 100;
+    top: -22px;
+    width: var(--container-size);
+    height: var(--container-size);
+    border-radius: calc(var(--container-size) / 2);
+    left: calc(50% - var(--container-size) / 2);
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .4s cubic-bezier(.215,.61,.355,1);
+    transform-origin: 50% 20%;
+    box-shadow: 0 2px 5px rgba(50,50,93,.1), 0 1px 1.5px rgba(0,0,0,.07);
+}
+
+.c-tent__icon{
+    z-index: 1000;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    fill: red;
+}
+
+.c-tent__body{
+
+}
+
+.c-tent__content{
+
+}
+
+.c-tent__title{
+
+}
+
+.c-tent__action{
+
+}
 
 /*------------------------------------*\
 #UTILITIES
@@ -1334,4 +1530,16 @@ No media query since this is the default in mobile first design
     h3 {
         page-break-after: avoid;
     }
+}
+
+
+/*
+
+*/
+.has-error{
+    --label-color: var(--global-color-error);
+    --input-borderColor: var(--global-input-error-borderColor);
+    --input-hover-borderColor: var(--global-input-error-borderColor);
+    --input-focus-borderColor: var(--global-input-error-borderColor);
+    --input-boxSchadow: var(--global-input-error-borderColor);
 }
